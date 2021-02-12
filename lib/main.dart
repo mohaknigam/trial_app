@@ -25,17 +25,58 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    containerForModalPopup<T>(BuildContext context, Widget child) {
+      showCupertinoModalPopup(
+          context: context,
+          builder: (BuildContext context) => child).then<void>((method) {
+        Scaffold.of(context).showSnackBar(
+          SnackBar(
+            content: null,
+            duration: Duration(milliseconds: 800),
+          ),
+        );
+      });
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('HomePage'),
+        title: Text('Cupertino Widgets'),
       ),
       body: Container(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
         splashColor: Colors.black54,
-        autofocus: true,
         child: Icon(Icons.send),
-        onPressed: () {},
+        onPressed: () => containerForModalPopup(
+          context,
+          CupertinoActionSheet(
+            title: Text(
+              'Hey User',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            message: Text('Does your work inspires you?'),
+            actions: <Widget>[
+              CupertinoActionSheetAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'Yes',
+                  style: TextStyle(color: Colors.red),
+                ),
+              ),
+              CupertinoActionSheetAction(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  'No',
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
