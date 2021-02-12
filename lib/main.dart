@@ -38,11 +38,49 @@ class _HomePageState extends State<HomePage> {
       });
     }
 
+    containerForDialogBox() {
+      return showCupertinoDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return CupertinoAlertDialog(
+              title: Text('Exit the App'),
+              actions: <Widget>[
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.mail),
+                  label: Text('Yes'),
+                ),
+                FlatButton.icon(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  icon: Icon(Icons.mail),
+                  label: Text('No'),
+                ),
+              ],
+            );
+          });
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Cupertino Widgets'),
       ),
-      body: Container(),
+      body: Container(
+        child: Center(
+          child: Column(
+            children: [
+              FlatButton.icon(
+                onPressed: () => containerForDialogBox,
+                icon: Icon(Icons.remove_red_eye_sharp),
+                label: Text('Exit'),
+              ),
+            ],
+          ),
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
         splashColor: Colors.black54,
